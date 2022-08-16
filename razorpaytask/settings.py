@@ -127,8 +127,15 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # RAZORPAY_KEY_SECRET = 'tdL21YxTdESTRGe0alzp9pI2'
 
 
+# me LIVE
+# RAZORPAY_KEY_ID = 'rzp_live_dN99UEoO11fTe3'
+# RAZORPAY_KEY_SECRET = '3con4DcsN815rGI5Ap6VTt9A'
 
 
-
+# me Test
 RAZORPAY_KEY_ID = 'rzp_test_D9KXF2jonrzG2O'
 RAZORPAY_KEY_SECRET = 'WiqGn58jJE0BOfHZtXpTDRa6'
+
+
+
+
