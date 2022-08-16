@@ -1,0 +1,1 @@
+web: gunicorn razorpaytask.wsgi --log-file -
