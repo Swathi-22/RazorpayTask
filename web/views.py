@@ -55,8 +55,8 @@ def callback(request):
             order.save()
             return render(request, "callback.html", context={"status": order.status})
     else:
-        payment_id = json.loads(request.POST.get("error")).get("payment_id")
-        provider_order_id = json.loads(request.POST.get("error")).get("order_id")
+        payment_id = json.loads(request.POST.get("error[metadata]")).get("payment_id")
+        provider_order_id = json.loads(request.POST.get("error[metadata]")).get("order_id")
         order = Order.objects.get(provider_order_id=provider_order_id)
         order.payment_id = payment_id
         order.status = PaymentStatus.FAILURE
