@@ -23,7 +23,7 @@ def order_payment(request):
             request,
             "payment.html",
             {
-                "callback_url": "http://" + "https://razorpaytask.herokuapp.com/" + "/callback/",
+                "callback_url": "http://" + "razorpaytask.herokuapp.com" + "/callback/",
                 "razorpay_key": 'rzp_test_D9KXF2jonrzG2O',
                 "order": order,
             },
