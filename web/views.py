@@ -15,7 +15,7 @@ def order_payment(request):
     if request.method == "POST":
         name = request.POST.get("name")
         amount = request.POST.get("amount")
-        client = razorpay.Client(auth=("rzp_test_D9KXF2jonrzG2O", "WiqGn58jJE0BOfHZtXpTDRa6"))
+        client = razorpay.Client(auth=("rzp_test_hC4pFTo1gvL3SV", "lYvTTabO6PRGJMTwV6JPgEa5"))
         razorpay_order = client.order.create({"amount": int(amount) * 100, "currency": "INR", "payment_capture": "1"})
         order = Order.objects.create(name=name, amount=amount, provider_order_id=razorpay_order["id"])
         order.save()
@@ -25,7 +25,7 @@ def order_payment(request):
             {
                 "callback_url": "https://" + "razorpaytask.herokuapp.com" + "/callback/",
                 # "callback_url": "http://" + "127.0.0.1:8000" + "/callback/",
-                "razorpay_key": 'rzp_test_D9KXF2jonrzG2O',
+                "razorpay_key": 'rzp_test_hC4pFTo1gvL3SV',
                 "order": order,
             },
         )
@@ -36,7 +36,7 @@ def order_payment(request):
 @csrf_exempt
 def callback(request):
     def verify_signature(response_data):
-        client = razorpay.Client(auth=("rzp_test_D9KXF2jonrzG2O", "WiqGn58jJE0BOfHZtXpTDRa6"))
+        client = razorpay.Client(auth=("rzp_test_hC4pFTo1gvL3SV", "lYvTTabO6PRGJMTwV6JPgEa5"))
         return client.utility.verify_payment_signature(response_data)
 
     if "razorpay_signature" in request.POST:
@@ -48,11 +48,11 @@ def callback(request):
         order.signature_id = signature_id
         order.save()
         if not verify_signature(request.POST):
-            order.status = PaymentStatus.SUCCESS
+            order.status = PaymentStatus.FAILURE
             order.save()
             return render(request, "callback.html", context={"status": order.status})
         else:
-            order.status = PaymentStatus.FAILURE
+            order.status = PaymentStatus.SUCCESS
             order.save()
             return render(request, "callback.html", context={"status": order.status})
     else:
